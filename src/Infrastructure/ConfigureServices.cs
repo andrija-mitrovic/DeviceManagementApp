@@ -1,9 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Application.Common.Interfaces;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Interceptors;
+using Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigureServices
     {
+        private const string CONNECTION_STRING_NAME = "SqlServer";
+
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDatabase(configuration);
@@ -12,12 +19,15 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString(CONNECTION_STRING_NAME),
+                    builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 
         private static void AddServices(this IServiceCollection services)
         {
-
+            services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+            services.AddScoped<IDateTime, DateTimeService>();
         }
     }
 }
