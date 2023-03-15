@@ -17,10 +17,9 @@ namespace Infrastructure.Persistence.Configurations
                 .HasForeignKey(x => x.ParentId)
                 .HasConstraintName("FK_DeviceTypes_DeviceTypes_ParentId");
 
-            builder.HasIndex(x => new { x.ParentId, x.Name })
-                .HasFilter("ParentId IS NOT NULL")
+            builder.HasIndex(x => new { x.Name })
                 .IsUnique()
-                .HasDatabaseName("IX_DeviceTypes_ParentId_Name");
+                .HasDatabaseName("IX_DeviceTypes_Name");
         }
     }
 }
