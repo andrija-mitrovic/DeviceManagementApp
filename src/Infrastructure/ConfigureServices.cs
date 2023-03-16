@@ -27,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
         private static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+            services.AddScoped<ApplicationDbContextInitialiser>();
             services.AddScoped<IDateTime, DateTimeService>();
         }
     }
