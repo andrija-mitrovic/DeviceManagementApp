@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Interceptors;
+using Infrastructure.Persistence.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
             services.AddScoped<ApplicationDbContextInitialiser>();
+            services.AddScoped<IDeviceRepository, DeviceRepository>();
+            services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
+            services.AddScoped<IDeviceTypePropertyRepository, DeviceTypePropertyRepository>();
+            services.AddScoped<IDevicePropertyValueRepository, DevicePropertyValueRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDateTime, DateTimeService>();
         }
     }
