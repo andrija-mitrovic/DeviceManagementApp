@@ -1,4 +1,5 @@
-﻿using API.Services;
+﻿using API.Middlewares;
+using API.Services;
 using Application.Common.Interfaces;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,6 +18,8 @@ namespace Microsoft.Extensions.DependencyInjection
         private static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            services.AddTransient<ExceptionHandlingMiddleware>();
         }
     }
 }

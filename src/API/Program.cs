@@ -1,3 +1,4 @@
+using API.Middlewares;
 using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddAPIServices();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
