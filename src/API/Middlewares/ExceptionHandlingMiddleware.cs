@@ -1,4 +1,5 @@
 ﻿using API.Helpers;
+using Application.Common.Constants;
 using System.Text.Json;
 
 namespace API.Middlewares
@@ -27,7 +28,7 @@ namespace API.Middlewares
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = AppConstants.APPLICATION_JSON;
 
             var problem = ProblemDetailsGenerator.Generate(exception);
 
