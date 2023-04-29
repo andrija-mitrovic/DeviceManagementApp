@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.Common.DTOs;
+using AutoMapper;
+using Domain.Entities;
 
 namespace Application.Common.Mappings
 {
@@ -6,7 +8,11 @@ namespace Application.Common.Mappings
     {
         public MappingProfile()
         {
-
+            // DeviceType mapping
+            CreateMap<DeviceType, CreateUpdateDeviceTypeDTO>();
+            
+            // DeviceTypeProperty mapping
+            CreateMap<DeviceTypeProperty, CreateUpdateDeviceTypePropertyDTO>();
         }
     }
 }
